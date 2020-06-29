@@ -1,0 +1,3 @@
+sudo docker run --gpus '"device=0"' --net=host --ipc=host -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix --device /dev/video0:/dev/video0 -p 6006:6006 -it tensorflow/tensorflow:object_detection-2
+
+sudo docker cp LandingTest/ [ID]:/root
