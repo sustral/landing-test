@@ -22,8 +22,8 @@ class LandingDetection:
         # Set default graph in tf
         self.graph = tf.Graph()
         with self.graph.as_default():
-            with tf.gfile.GFile(graph_location, 'rb') as file:
-                graph_def = tf.GraphDef()
+            with tf.compat.v1.gfile.GFile(graph_location, 'rb') as file:
+                graph_def = tf.compat.v1.GraphDef()
                 graph_def.ParseFromString(file.read())
                 tf.import_graph_def(graph_def, name='')
 
@@ -164,14 +164,14 @@ class LandingDetection:
     # First, the image is passed through a white balance to account for lighting variances
     # Second, the image is passed through the TensorFlow object detection model that returns a bounding box
     def detect(self):
-        sess_config = tf.ConfigProto(intra_op_parallelism_threads=1, inter_op_parallelism_threads=1)
+        sess_config = tf.compat.v1.ConfigProto(intra_op_parallelism_threads=1, inter_op_parallelism_threads=1)
         sess_config.gpu_options.allow_growth = True
         with self.graph.as_default():
-            with tf.Session(config=sess_config) as sess:
+            with tf.compat.v1.Session(config=sess_config) as sess:
                 tensor_dict = {}
-                tensor_dict['detection_boxes'] = tf.get_default_graph().get_tensor_by_name('detection_boxes:0')
-                tensor_dict['detection_scores'] = tf.get_default_graph().get_tensor_by_name('detection_scores:0')
-                image_tensor = tf.get_default_graph().get_tensor_by_name('image_tensor:0')
+                tensor_dict['detection_boxes'] = tf.compat.v1.get_default_graph().get_tensor_by_name('detection_boxes:0')
+                tensor_dict['detection_scores'] = tf.compat.v1.get_default_graph().get_tensor_by_name('detection_scores:0')
+                image_tensor = tf.compat.v1.get_default_graph().get_tensor_by_name('image_tensor:0')
 
                 self.initialized = True
 

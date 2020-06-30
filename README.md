@@ -4,6 +4,8 @@ I used a custom trained TensorFlow object detection model and OpenCV
 to detect the landing zone and the aircraft's orientation relative to that
 landing zone.
 
+![Landing Detection Demo](/docs/landing.gif)
+
 ## Usage
 
 This program can be run on any Linux machine with Python3, TensorFlow, and OpenCV installed.
